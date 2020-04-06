@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iie.cas.dao.primary.AreaCodeTMapper">
+  <resultMap id="BaseResultMap" type="iie.cas.po.primary.AreaCodeT">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="MC" jdbcType="VARCHAR" property="mc" />
+    <result column="FID" jdbcType="INTEGER" property="fid" />
+  </resultMap>
+   <select id="SelectAll" resultMap="BaseResultMap"  >
+		SELECT * FROM area_code_t WHERE 1=1
+		<if test="ID != null and ID !='' ">
+			and ID=#{ID}
+		</if>
+		<if test="MC != null and MC !='' ">
+			and MC like CONCAT('%',#{MC,jdbcType=VARCHAR},'%')
+		</if>
+		 LIMIT #{start},#{length}
+	</select>
+	<select id="Select" resultMap="BaseResultMap"  >
+		SELECT * FROM area_code_t WHERE ID=#{ID} limit 1;
+	</select>
+	<select id="selectA" resultType="iie.cas.po.primary.AreaCodeT">
+		SELECT * FROM area_code_t
+	</select>
+	 <select id="SelectCount" resultType="java.lang.Integer" >
+		SELECT COUNT(*) FROM area_code_t where 1=1 
+	</select>
+	<select id="SelectList" resultMap="BaseResultMap"  >
+		SELECT * FROM area_code_t WHERE 1=1
+			AND FID IN  
+			<foreach item="item" index="index" collection="list" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>
+        OR ID IN  
+			<foreach item="item" index="index" collection="list" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>
+	</select>
+</mapper>

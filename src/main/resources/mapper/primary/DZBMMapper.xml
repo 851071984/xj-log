@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iie.cas.dao.primary.DZBMMapper">
+  <resultMap id="BaseResultMap" type="iie.cas.po.primary.DZBM">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+   <select id="SelectAll" resultMap="BaseResultMap"  >
+		SELECT * FROM DZBM WHERE 1=1
+		<if test="ID != null and ID !='' ">
+			and ID=#{ID}
+		</if>
+		<if test="MC != null and MC !='' ">
+			and NAME like CONCAT('%',#{NAME,jdbcType=VARCHAR},'%')
+		</if>
+		 LIMIT #{start},#{length}
+	</select>
+	 <select id="SelectCount" resultType="java.lang.Integer" >
+		SELECT COUNT(*) FROM DZBM where 1=1 
+	</select>
+</mapper>

@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iie.cas.dao.gbase.VPNJCZBMapper">
+  <resultMap id="BaseResultMap" type="iie.cas.po.VPNJCZBLogPo">
+    <result column="LABEL" jdbcType="VARCHAR" property="label" />
+    <result column="BHSJ" jdbcType="VARCHAR" property="bhsj" />
+    <result column="PZID" jdbcType="VARCHAR" property="pzid" />
+    <result column="FLID" jdbcType="INTEGER" property="flid" />
+    <result column="XZID" jdbcType="INTEGER" property="xzid" />
+    <result column="LHID" jdbcType="INTEGER" property="lhid" />
+    <result column="YDY" jdbcType="VARCHAR" property="ydy" />
+    <result column="MDDY" jdbcType="VARCHAR" property="mddy" />
+    <result column="PZLX" jdbcType="SMALLINT" property="pzlx" />
+    <result column="GKLB" jdbcType="SMALLINT" property="gklb" />
+    <result column="QDJIP" jdbcType="INTEGER" property="qdjip" />
+    <result column="SIP" jdbcType="VARCHAR" property="sip" />
+    <result column="DIP" jdbcType="VARCHAR" property="dip" />
+    <result column="SPORT" jdbcType="INTEGER" property="sport" />
+    <result column="DPORT" jdbcType="INTEGER" property="dport" />
+    <result column="PROTOCOL" jdbcType="INTEGER" property="protocol" />
+    <result column="PROTO_ID" jdbcType="VARCHAR" property="protoId" />
+    <result column="DETAIL_ID" jdbcType="VARCHAR" property="detailId" />
+    <result column="CS_PKTS" jdbcType="INTEGER" property="csPkts" />
+    <result column="CS_BYTES" jdbcType="BIGINT" property="csBytes" />
+    <result column="SC_PKTS" jdbcType="INTEGER" property="scPkts" />
+    <result column="SC_BYTES" jdbcType="BIGINT" property="scBytes" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="PWD" jdbcType="VARCHAR" property="pwd" />
+    <result column="YYS" jdbcType="INTEGER" property="yys" />
+    <result column="YL1" jdbcType="INTEGER" property="yl1" />
+    <result column="YL2" jdbcType="INTEGER" property="yl2" />
+    <result column="YL3" jdbcType="VARCHAR" property="yl3" />
+    <result column="YL4" jdbcType="VARCHAR" property="yl4" />
+    <result column="YL5" jdbcType="VARCHAR" property="yl5" />
+    <result column="URL" jdbcType="LONGVARCHAR" property="url" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    URL
+  </sql>
+  <select id="SelectAll" resultMap="BaseResultMap"  >
+		SELECT * FROM VPN_JCZB WHERE 1=1
+		<if test="startTime !=null and startTime !='' ">
+			and BHSJ&gt;#{startTime} 
+		</if>
+		<if test="endTime !=null and endTime !='' ">
+			and BHSJ &lt;	#{endTime}
+		</if>
+		<if test="YYS !=null and YYS !='' ">
+			and YYS=#{YYS}
+		</if>
+		<if test="PZID != null and PZID !='' ">
+			and PZID=#{PZID}
+		</if>
+		<if test="LHID != null and LHID !='' ">
+			and LHID=#{LHID}
+		</if>
+		<if test="QXDY != null and QXDY.size() >0 ">
+			AND (MDDY IN  
+			<foreach item="item" index="index" collection="QXDY" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>
+        OR  YDY IN  
+			<foreach item="item" index="index" collection="QXDY" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>)
+		</if>
+		<if test="YDY != null and YDY.length >0">
+			AND YDY IN  
+			<foreach item="item" index="index" collection="YDY" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>
+		</if>
+		<if test="MDDY != null and MDDY.length >0 ">
+			AND MDDY IN  
+			<foreach item="item" index="index" collection="MDDY" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>
+		</if>
+		<if test="PZLX != null and PZLX !='' ">
+			and PZLX=#{PZLX}
+		</if>
+		<if test="GKLB != null and GKLB !='' ">
+			AND GKLB IN (#{GKLB})
+		</if>
+		<if test="SIP != null and SIP !='' ">
+			and SIP=#{SIP}
+		</if>
+		<if test="DIP != null and DIP !='' ">
+			and DIP=#{DIP}
+		</if>
+		<if test="SPORT != null">
+			and SPORT=#{SPORT}
+		</if>
+		<if test="DPORT != null  ">
+			and DPORT=#{DPORT}
+		</if>
+		<if test="PROTOCOL != null and PROTOCOL !='' ">
+			and PROTOCOL=#{PROTOCOL}
+		</if>
+		
+		<if test="LABEL != null and LABEL.length >0 ">
+			<foreach item="item" index="index" collection="LABEL" 
+                         open="" separator="" close="">
+             AND LABEL like  CONCAT('%',#{item},'%')
+        </foreach>
+        </if>
+		<if test="QDJIP != null and QDJIP !='' ">
+			and QDJIP=#{QDJIP}
+		</if>
+		<if test="URL != null and URL !='' ">
+			and URL=#{URL}
+		</if>
+		<if test="USERNAME != null and USERNAME !='' ">
+			and USERNAME=#{USERNAME}
+		</if>
+		<if test="PWD != null and PWD !='' ">
+			and PWD=#{PWD}
+		</if>
+		
+		<if test="SC_PKTS != null and SC_PKTS !='' ">
+			and SC_PKTS=#{SC_PKTS}
+		</if>
+		<if test="CS_PKTS != null and CS_PKTS !='' ">
+			and CS_PKTS=#{CS_PKTS}
+		</if>
+		<if test="SC_BYTES != null and SC_BYTES !='' ">
+			and SC_BYTES=#{SC_BYTES}
+		</if>
+		<if test="CS_BYTES != null and CS_BYTES !='' ">
+			and CS_BYTES=#{CS_BYTES}
+		</if>
+		
+		ORDER BY BHSJ DESC LIMIT #{start},#{length}
+	</select>
+	 <select id="SelectCount" resultType="java.lang.Integer" >
+		SELECT COUNT(*) FROM VPN_JCZB where 1=1 
+		 <if test="startTime !=null and startTime !='' ">
+			and BHSJ&gt;#{startTime} 
+		</if>
+		<if test="endTime !=null and endTime !='' ">
+			and BHSJ &lt;	#{endTime}
+		</if>
+		<if test="YYS !=null and YYS !='' ">
+			and YYS=#{YYS}
+		</if>
+		<if test="PZID != null and PZID !='' ">
+			and PZID=#{PZID}
+		</if>
+		<if test="LHID != null and LHID !='' ">
+			and LHID=#{LHID}
+		</if>
+		<if test="QXDY != null and QXDY.size() >0 ">
+			AND (MDDY IN  
+			<foreach item="item" index="index" collection="QXDY" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>
+        OR  YDY IN  
+			<foreach item="item" index="index" collection="QXDY" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>)
+		</if>
+		<if test="YDY != null and YDY.length >0">
+			AND YDY IN  
+			<foreach item="item" index="index" collection="YDY" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>
+		</if>
+		<if test="MDDY != null and MDDY.length >0 ">
+			AND MDDY IN  
+			<foreach item="item" index="index" collection="MDDY" 
+                         open="(" separator="," close=")">
+                        #{item}
+        </foreach>
+		</if>
+		<if test="PZLX != null and PZLX !='' ">
+			and PZLX=#{PZLX}
+		</if>
+		<if test="GKLB != null and GKLB !='' ">
+			AND GKLB IN (#{GKLB})
+		</if>
+		<if test="SIP != null and SIP !='' ">
+			and SIP=#{SIP}
+		</if>
+		<if test="DIP != null and DIP !='' ">
+			and DIP=#{DIP}
+		</if>
+		<if test="SPORT != null ">
+			and SPORT=#{SPORT}
+		</if>
+		<if test="DPORT != null ">
+			and DPORT=#{DPORT}
+		</if>
+		<if test="PROTOCOL != null and PROTOCOL !='' ">
+			and PROTOCOL=#{PROTOCOL}
+		</if>
+		<if test="LABEL != null and LABEL.length >0 ">
+			<foreach item="item" index="index" collection="LABEL" 
+                         open="" separator="" close="">
+             AND LABEL like  CONCAT('%',#{item},'%')
+        </foreach>
+        </if>
+		<if test="QDJIP != null and QDJIP !='' ">
+			and QDJIP=#{QDJIP}
+		</if>
+		<if test="URL != null and URL !='' ">
+			and URL=#{URL}
+		</if>
+		<if test="USERNAME != null and USERNAME !='' ">
+			and USERNAME=#{USERNAME}
+		</if>
+		<if test="PWD != null and PWD !='' ">
+			and PWD=#{PWD}
+		</if>
+		
+		<if test="SC_PKTS != null and SC_PKTS !='' ">
+			and SC_PKTS=#{SC_PKTS}
+		</if>
+		<if test="CS_PKTS != null and CS_PKTS !='' ">
+			and CS_PKTS=#{CS_PKTS}
+		</if>
+		<if test="SC_BYTES != null and SC_BYTES !='' ">
+			and SC_BYTES=#{SC_BYTES}
+		</if>
+		<if test="CS_BYTES != null and CS_BYTES !='' ">
+			and CS_BYTES=#{CS_BYTES}
+		</if>
+	</select>
+  <insert id="insert" parameterType="iie.cas.po.VPNJCZBLogPo">
+    insert into vpn_jczb (BHSJ, PZID, FLID, 
+      XZID, LHID, YDY, MDDY, 
+      PZLX, GKLB, QDJIP, 
+      SIP, DIP, SPORT, DPORT, 
+      PROTOCOL, PROTO_ID, DETAIL_ID, 
+      CS_PKTS, CS_BYTES, SC_PKTS, 
+      SC_BYTES, USERNAME, PWD, 
+      YYS, YL1, YL2, YL3, 
+      YL4, YL5, URL,LABEL)
+    values (#{bhsj,jdbcType=TIMESTAMP}, #{pzid,jdbcType=VARCHAR}, #{flid,jdbcType=INTEGER}, 
+      #{xzid,jdbcType=INTEGER}, #{lhid,jdbcType=INTEGER}, #{ydy,jdbcType=VARCHAR}, #{mddy,jdbcType=VARCHAR}, 
+      #{pzlx,jdbcType=SMALLINT}, #{gklb,jdbcType=SMALLINT}, #{qdjip,jdbcType=INTEGER}, 
+      #{sip,jdbcType=VARCHAR}, #{dip,jdbcType=VARCHAR}, #{sport,jdbcType=INTEGER}, #{dport,jdbcType=INTEGER}, 
+      #{protocol,jdbcType=INTEGER}, #{protoId,jdbcType=VARCHAR}, #{detailId,jdbcType=VARCHAR}, 
+      #{csPkts,jdbcType=INTEGER}, #{csBytes,jdbcType=BIGINT}, #{scPkts,jdbcType=INTEGER}, 
+      #{scBytes,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
+      #{yys,jdbcType=INTEGER}, #{yl1,jdbcType=INTEGER}, #{yl2,jdbcType=INTEGER}, #{yl3,jdbcType=VARCHAR}, 
+      #{yl4,jdbcType=VARCHAR}, #{yl5,jdbcType=VARCHAR}, #{url,jdbcType=LONGVARCHAR},#{label,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="iie.cas.po.VPNJCZBLogPo">
+    insert into vpn_jczb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bhsj != null">
+        BHSJ,
+      </if>
+      <if test="pzid != null">
+        PZID,
+      </if>
+      <if test="flid != null">
+        FLID,
+      </if>
+      <if test="xzid != null">
+        XZID,
+      </if>
+      <if test="lhid != null">
+        LHID,
+      </if>
+      <if test="ydy != null">
+        YDY,
+      </if>
+      <if test="mddy != null">
+        MDDY,
+      </if>
+      <if test="pzlx != null">
+        PZLX,
+      </if>
+      <if test="gklb != null">
+        GKLB,
+      </if>
+      <if test="qdjip != null">
+        QDJIP,
+      </if>
+      <if test="sip != null">
+        SIP,
+      </if>
+      <if test="dip != null">
+        DIP,
+      </if>
+      <if test="sport != null">
+        SPORT,
+      </if>
+      <if test="dport != null">
+        DPORT,
+      </if>
+      <if test="protocol != null">
+        PROTOCOL,
+      </if>
+      <if test="protoId != null">
+        PROTO_ID,
+      </if>
+      <if test="detailId != null">
+        DETAIL_ID,
+      </if>
+      <if test="csPkts != null">
+        CS_PKTS,
+      </if>
+      <if test="csBytes != null">
+        CS_BYTES,
+      </if>
+      <if test="scPkts != null">
+        SC_PKTS,
+      </if>
+      <if test="scBytes != null">
+        SC_BYTES,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="pwd != null">
+        PWD,
+      </if>
+      <if test="yys != null">
+        YYS,
+      </if>
+      <if test="yl1 != null">
+        YL1,
+      </if>
+      <if test="yl2 != null">
+        YL2,
+      </if>
+      <if test="yl3 != null">
+        YL3,
+      </if>
+      <if test="yl4 != null">
+        YL4,
+      </if>
+      <if test="yl5 != null">
+        YL5,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bhsj != null">
+        #{bhsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pzid != null">
+        #{pzid,jdbcType=VARCHAR},
+      </if>
+      <if test="flid != null">
+        #{flid,jdbcType=INTEGER},
+      </if>
+      <if test="xzid != null">
+        #{xzid,jdbcType=INTEGER},
+      </if>
+      <if test="lhid != null">
+        #{lhid,jdbcType=INTEGER},
+      </if>
+      <if test="ydy != null">
+        #{ydy,jdbcType=VARCHAR},
+      </if>
+      <if test="mddy != null">
+        #{mddy,jdbcType=VARCHAR},
+      </if>
+      <if test="pzlx != null">
+        #{pzlx,jdbcType=SMALLINT},
+      </if>
+      <if test="gklb != null">
+        #{gklb,jdbcType=SMALLINT},
+      </if>
+      <if test="qdjip != null">
+        #{qdjip,jdbcType=INTEGER},
+      </if>
+      <if test="sip != null">
+        #{sip,jdbcType=VARCHAR},
+      </if>
+      <if test="dip != null">
+        #{dip,jdbcType=VARCHAR},
+      </if>
+      <if test="sport != null">
+        #{sport,jdbcType=INTEGER},
+      </if>
+      <if test="dport != null">
+        #{dport,jdbcType=INTEGER},
+      </if>
+      <if test="protocol != null">
+        #{protocol,jdbcType=INTEGER},
+      </if>
+      <if test="protoId != null">
+        #{protoId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailId != null">
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="csPkts != null">
+        #{csPkts,jdbcType=INTEGER},
+      </if>
+      <if test="csBytes != null">
+        #{csBytes,jdbcType=BIGINT},
+      </if>
+      <if test="scPkts != null">
+        #{scPkts,jdbcType=INTEGER},
+      </if>
+      <if test="scBytes != null">
+        #{scBytes,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="yys != null">
+        #{yys,jdbcType=INTEGER},
+      </if>
+      <if test="yl1 != null">
+        #{yl1,jdbcType=INTEGER},
+      </if>
+      <if test="yl2 != null">
+        #{yl2,jdbcType=INTEGER},
+      </if>
+      <if test="yl3 != null">
+        #{yl3,jdbcType=VARCHAR},
+      </if>
+      <if test="yl4 != null">
+        #{yl4,jdbcType=VARCHAR},
+      </if>
+      <if test="yl5 != null">
+        #{yl5,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

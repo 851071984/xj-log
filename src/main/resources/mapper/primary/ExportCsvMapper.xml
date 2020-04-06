@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iie.cas.dao.primary.ExportCsvMapper">
+	<resultMap id="BaseResultMap" type="iie.cas.po.primary.ExportCsv">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="logType" jdbcType="INTEGER" property="logType" />
+		<result column="sqls" jdbcType="VARCHAR" property="sqls" />
+		<result column="stime" jdbcType="VARCHAR" property="stime" />
+		<result column="etime" jdbcType="VARCHAR" property="etime" />
+		<result column="num" jdbcType="INTEGER" property="num" />
+		<result column="completed" jdbcType="INTEGER" property="completed" />
+		<result column="numSql" jdbcType="VARCHAR" property="numSql" />
+		<result column="userName" jdbcType="VARCHAR" property="userName" />
+		<result column="path" jdbcType="VARCHAR" property="path" />
+		<result column="yl1" jdbcType="VARCHAR" property="yl1" />
+	    <result column="yl2" jdbcType="VARCHAR" property="yl2" />
+	    <result column="yl3" jdbcType="VARCHAR" property="yl3" />
+	</resultMap>
+	<update id="UpdateStatus">
+		update EXPORTCSV
+		<set>
+		status=#{status}
+		</set>
+		where id=#{id}
+	</update>
+	<update id="UpdateStime">
+		update EXPORTCSV
+		<set>
+		stime=#{stime}
+		</set>
+		where id=#{id}
+	</update>
+	<update id="UpdateEtime">
+		update EXPORTCSV
+		<set>
+		etime=#{etime}
+		</set>
+		where id=#{id}
+	</update>
+	<update id="UpdatePath">
+		update EXPORTCSV
+		<set>
+		path=#{path}
+		</set>
+		where id=#{id}
+	</update>
+	<update id="UpdateNum">
+		update EXPORTCSV
+		<set>
+		num=#{num}
+		</set>
+		where id=#{id}
+	</update>
+	<update id="UpdateCompleted">
+		update EXPORTCSV
+		<set>
+		completed=#{completed}
+		</set>
+		where id=#{id}
+	</update>
+	<select id="SelectAll" resultMap="BaseResultMap">
+		SELECT * FROM EXPORTCSV WHERE logType=#{logType} 
+		ORDER BY id DESC LIMIT #{start},#{length}
+	</select>
+	<select id="select" resultMap="BaseResultMap">
+		SELECT * FROM
+		EXPORTCSV where status=0
+	</select>
+	<select id="SelectId" resultMap="BaseResultMap">
+		SELECT * FROM
+		EXPORTCSV where id=#{id}
+	</select>
+	<select id="SelectCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM EXPORTCSV where 1=1 and logType=#{logType} 
+	</select>
+	<insert id="insert" parameterType="iie.cas.po.primary.ExportCsv">
+		insert into EXPORTCSV (name, status, sqls,
+		numSql, userName,logType,
+		yl1, yl2, yl3)
+		values (#{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+		#{sqls,jdbcType=VARCHAR},
+		#{numSql,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},#{logType,jdbcType=INTEGER}, #{yl1,jdbcType=VARCHAR},
+		#{yl2,jdbcType=VARCHAR},
+		#{yl3,jdbcType=VARCHAR})
+	</insert>
+</mapper>

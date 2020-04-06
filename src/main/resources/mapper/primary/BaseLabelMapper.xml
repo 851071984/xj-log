@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iie.cas.dao.primary.BaseLabelMapper">
+  <resultMap id="BaseResultMap" type="iie.cas.po.primary.BaseLabel">
+    <result column="BQID" jdbcType="INTEGER" property="bqid" />
+    <result column="BQMC" jdbcType="VARCHAR" property="bqmc" />
+    <result column="ZT" jdbcType="INTEGER" property="zt" />
+  </resultMap>
+	<select id="Select" resultMap="BaseResultMap"  >
+		SELECT * FROM base_label WHERE BQID=#{BQID} limit 1;
+	</select>
+	<select id="SelectName" resultMap="BaseResultMap"  >
+		SELECT * FROM base_label WHERE BQMC=#{BQMC} limit 1;
+	</select>
+</mapper>

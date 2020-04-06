@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iie.cas.dao.primary.BaseJklhMapper">
+  <resultMap id="BaseResultMap" type="iie.cas.po.primary.BaseJklh">
+    <result column="LHID" jdbcType="INTEGER" property="lhid" />
+    <result column="LHHH" jdbcType="VARCHAR" property="lhhh" />
+    <result column="LHLX" jdbcType="INTEGER" property="lhlx" />
+  </resultMap>
+	<select id="Select" resultMap="BaseResultMap"  >
+		SELECT * FROM base_jklh WHERE LHID=#{LHID} limit 1;
+	</select>
+	<select id="SelectAll" resultMap="BaseResultMap"  >
+		SELECT * FROM base_jklh 
+	</select>
+	<select id="SelectName" resultMap="BaseResultMap"  >
+		SELECT * FROM base_jklh WHERE LHHH=#{LHHH} limit 1;
+	</select>
+</mapper>

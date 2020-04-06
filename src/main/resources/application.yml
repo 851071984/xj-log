@@ -1,0 +1,57 @@
+server:
+  port: 9999
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+gbase:
+  datasource:
+    druid:
+      filters: stat
+      driverClassName: com.gbase.jdbc.Driver
+      url: jdbc:gbase://172.16.18.17:5258/xinjiang2?characterEncoding=UTF-8&useUnicode=true&useSSL=false
+      username: root
+      password: 123456
+      initialSize: 1
+      minIdle: 1
+      maxActive: 5
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: false
+      maxPoolPreparedStatementPerConnectionSize: 5
+primary:
+  datasource:
+    druid:
+      filters: stat
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://172.16.18.17:3306/xxjj?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&useSSL=false&serverTimezone=GMT%2B8
+      username: root
+      password: 112113114
+      initialSize: 1
+      minIdle: 1
+      maxActive: 5
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: false
+      maxPoolPreparedStatementPerConnectionSize: 5
+#    type: javax.sql.DataSource
+  servlet:
+    multipart:
+      enabled: true
+      location: /home/
+      max-file-size: 100MB
+      max-request-size: 100MB
+      file-size-threshold: 0
+        
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: iie.cas.po*/*
